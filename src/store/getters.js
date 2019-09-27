@@ -1,0 +1,1 @@
+export const dragEndCount = state => state.dragEndCount
