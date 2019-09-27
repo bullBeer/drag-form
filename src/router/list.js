@@ -1,5 +1,5 @@
-const dragForm = () => import('@/views/dragForm')
-const preview = () => import('@/views/preview')
+const dragForm = () => import('@/views/dragForm/dragForm')
+const preview = () => import('@/views/dragForm/preview')
 
 export default [
   {

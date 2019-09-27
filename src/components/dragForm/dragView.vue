@@ -3,7 +3,7 @@
     <el-form ref="form" label-width="80px" label-position="top" class="form-view-container">
       <div class="form-box" v-for="(item, index) in boxList" :key="index" :data-index="index" :style="styles">
         <el-button type="text" size="small" v-if="item.type" @click="getCurrentConfig(item)">配置</el-button>
-        <form-item :config="item"></form-item>
+        <form-component :config="item"></form-component>
       </div>
     </el-form>
     <form-config 
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import formItem from './formItem'
+import formComponent from './formComponent'
 import formConfig from '@/components/dragForm/formConfig'
 export default {
   name: 'formView',
@@ -39,6 +39,9 @@ export default {
       currentConfig: {}
     }
   },
+  mounted() {
+
+  },
   methods: {
     confirmConfig(config) {
       this.$emit('update', JSON.parse(JSON.stringify(config)));
@@ -49,7 +52,7 @@ export default {
     }
   },
   components: {
-    formItem,
+    formComponent,
     formConfig
   }
 }
@@ -69,9 +72,6 @@ export default {
       position: relative;
       &.active{
         background-color: #f2f2f2;
-      }
-      div:first-child{
-        height: 100%;
       }
       .el-form-item{
         height: 100%;

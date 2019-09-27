@@ -8,7 +8,7 @@
     </div>
     <div class="left-col">
       <el-form label-width="80px" label-position="top" class="form-option-list">
-        <form-item v-for="(item, index) in formOptions" :key="index" :config="item" class="form-option-item"></form-item>
+        <form-component v-for="(item, index) in formTypeList" :key="index" :config="item" class="form-option-item"></form-component>
       </el-form>
     </div>
     <div class="right-col">
@@ -17,7 +17,6 @@
         :styles="boxStyle"
         @update="updateConfig"
       >
-
       </drag-view>
     </div>
     <setting 
@@ -30,11 +29,12 @@
 </template>
 
 <script>
-import formItem from '@/components/dragForm/formItem'
+import formTypeList from '@/components/dragForm/config/formTypeList'
+import formComponent from '@/components/dragForm/formComponent'
 import dragView from '@/components/dragForm/dragView'
 import setting from '@/components/dragForm/setting'
 export default {
-  name: 'formDrag',
+  name: 'dragForm',
   data() {
     return {
       showDel: false,
@@ -44,30 +44,8 @@ export default {
         col: 2,
         row: 4
       },
-      // 表单选择列表
-      formOptions: [
-        {
-          type: 'input',
-        },
-        {
-          type: 'select',
-        },
-        {
-          type: 'date',
-        },
-        {
-          type: 'switch',
-        },
-        {
-          type: 'checkbox',
-        },
-        {
-          type: 'radio',
-        },
-        {
-          type: 'textarea',
-        }
-      ],
+      // 所有表单列表
+      formTypeList,
       // 表单渲染容器列表
       boxList: [],
       boxStyle: {},
@@ -143,9 +121,9 @@ export default {
         if (self.fromDragIndex !== '') {
           const item1 = self.boxList[self.fromDragIndex];
           const item2 = self.boxList[target.dataset.index];
-          // 复制下标
-          const index1 = item1.index;
-          const index2 = item2.index;
+          // 互换下标
+          const index1 = self.fromDragIndex;
+          const index2 = target.dataset.index;
           item1.index = index2;
           item2.index = index1;
           self.$set(self.boxList, target.dataset.index, item1);
@@ -159,8 +137,6 @@ export default {
       const delBar = self.findClass(event.target, 'del-bar');
       if (delBar) {
         self.$set(self.boxList, self.fromDragIndex, {
-          row: self.boxList[self.fromDragIndex].row,
-          col: self.boxList[self.fromDragIndex].col,
           index: self.fromDragIndex
         });
         self.fromDragIndex = '';
@@ -177,12 +153,8 @@ export default {
       let len = config.row * config.col;
       this.boxList = [];
       for (let i = 0; i < len; i++) {
-        // 计算容器位置
-        const row =  Math.ceil((i + 1) / config.col), col = i % config.col + 1;
         this.boxList.push({
-          index: i, // 容器下标
-          row,
-          col
+          index: i // 容器下标
         })
       }
       const marginX = 1;
@@ -230,7 +202,7 @@ export default {
     }
   },
   components: {
-    formItem,
+    formComponent,
     dragView,
     setting
   }
@@ -239,5 +211,5 @@ export default {
 
 
 <style lang="less">
-@import '../assets/less/dragForm.less';
+@import './less/dragForm.less';
 </style>

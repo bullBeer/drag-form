@@ -1,11 +1,11 @@
 <template>
   <el-dialog title="主屏设置" :visible.sync="show" width="600px" @closed="close">
     <el-form :model="form">
-      <el-form-item label="主屏行数" label-width="80px" class="mb10">
-        <el-input v-model="form.row" autocomplete="off"></el-input>
+      <el-form-item label="主屏行数：" label-width="80px" class="mb10">
+        <el-input-number v-model="form.row" :min="1" :max="20"></el-input-number>
       </el-form-item>
-      <el-form-item label="主屏列数" label-width="80px" class="mb10">
-        <el-input v-model="form.col" autocomplete="off"></el-input>
+      <el-form-item label="主屏列数：" label-width="80px" class="mb10">
+        <el-input-number v-model="form.col" :min="1" :max="3"></el-input-number>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
