@@ -1,8 +1,7 @@
 <template>
   <el-form-item :label="config.title || '复选框'" :draggable="draggable" :data-form-type="config.type" :prop="rule ? config.field : ''">
-    <el-checkbox-group v-model="form[config.field]">
-      <el-checkbox label="选项1" name="type"></el-checkbox>
-      <el-checkbox label="选项2" name="type2"></el-checkbox>
+    <el-checkbox-group v-model="iForm[config.field]">
+      <el-checkbox :label="item.value" :key="i" v-for="(item, i) in config.options">{{item.label}}</el-checkbox>
     </el-checkbox-group>
   </el-form-item>
 </template>
@@ -31,6 +30,13 @@ export default {
         return false;
       }
     },
+  },
+  data() {
+    return {
+      iForm: {
+        [this.config.field]: []
+      }
+    }
   }
 }
 </script>
