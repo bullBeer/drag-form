@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import reqularList from './config/reqularList'
+import regularList from './config/regularList'
 export default {
   name: 'formConfig',
   props: {
@@ -85,7 +85,7 @@ export default {
     }
   },
   created () {
-    reqularList.forEach(item => {
+    regularList.forEach(item => {
       this.reqularOptions.push({
         label: Object.values(item)[1],
         value: Object.keys(item)[0]
@@ -126,10 +126,14 @@ export default {
         this.form[key] = '';
       }
       this.isRule = 0;
-      this.$set(this.form, 'options', [{
-        value: '',
-        label: ''
-      }])
+      if(this.config.type === 'select' || this.config.type === 'checkbox' || this.config.type === 'radio') {
+        this.$set(this.form, 'options', [{
+          value: '',
+          label: ''
+        }])
+        return;
+      }
+      this.$delete(this.form, 'options');
     },
   },
   components: {

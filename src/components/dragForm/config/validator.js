@@ -1,9 +1,9 @@
 /**
  * 验证器
 */
-import reqularList from './reqularList'
+import regularList from './regularList'
 let regular = {};
-reqularList.forEach(item => {
+regularList.forEach(item => {
   regular[Object.keys(item)[0]] = Object.values(item)[0]
 })
 
