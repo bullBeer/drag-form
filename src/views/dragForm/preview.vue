@@ -5,7 +5,7 @@
     </div>
     <el-form :model="form" ref="form" :rules="rules" label-width="80px" label-position="top" class="preview-container">
       <div class="form-box" v-for="index in config.col * config.row" :key="index" :data-index="index" :style="boxStyle">
-        <form-component v-if="config.list[index - 1].type" :config="config.list[index - 1]" :draggable="false" :form="form" :rule="true">
+        <form-component v-if="config.list[index - 1].type" :config="config.list[index - 1]" :draggable="false" :form="form" :isRule="config.list[index - 1].regType">
         </form-component>
       </div>
     </el-form>
@@ -15,7 +15,8 @@
 
 <script>
 import formComponent from '@/components/dragForm/formComponent'
-import rules from '@/components/dragForm/config/rules'
+import validator from '@/components/dragForm/config/validator'
+
 export default {
   name: 'preview',
   data() {
@@ -49,11 +50,14 @@ export default {
         width: (100 - 1 * config.col * 2) / config.col + '%'
       });
 
-      // 初始化表单数据与验证规则
+      // 初始化表单数据与验证
       config.list.forEach(item => {
         if (item.field) {
           this.$set(this.form, item.field, '');
-          this.$set(this.rules, item.field, rules[item.field]);
+          this.$set(this.rules, item.field, [
+            {validator: validator.empty, message: `${item.title}不能为空`, trigger: 'blur'},
+            {validator: validator.match, message: `${item.title}输入有误`, trigger: 'blur', regType: item.regType}
+          ]);
         }
       })
       console.log('this.form', this.form)

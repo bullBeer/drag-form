@@ -1,17 +1,33 @@
 <template>
   <el-dialog class="mixin-form" :append-to-body="true" title="表单配置" :visible.sync="show" width="600px" @closed="close">
     <el-form :model="form" ref="form" label-width="100px" label-position="right">
-      <el-form-item label="表单名称" prop="title">
+      <el-form-item label="表单名称">
         <el-input v-model="form.title" placeholder="请输入表单名称"></el-input>
       </el-form-item>
-      <el-form-item label="表单字段" prop="field">
+      <el-form-item label="表单字段">
         <el-input v-model="form.field" placeholder="请输入表单字段"></el-input>
+      </el-form-item>
+      <el-form-item label="开启验证">
+        <el-switch
+          v-model="isRule"
+          active-color="#13ce66"
+          inactive-color="#dedede"
+          :active-value="1"
+          :inactive-value="0"
+          @change="changeSwitch"
+        >
+        </el-switch>
+      </el-form-item>
+      <el-form-item label="验证规则" v-if="isRule">
+        <el-select v-model="form.regType" placeholder="请选择验证规则">
+          <el-option :label="item.label" :value="item.value" v-for="item in reqularOptions" :key="item.value"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="选项名称与值" v-if="config.type === 'select' || config.type === 'checkbox'">
         <div v-for="(item, i) in form.options" :key="i" class="mb10">
           <el-input v-model="item.label" style="width: 45%;" placeholder="请输入选项名称"></el-input>
           <el-input v-model="item.value" style="width: 45%; margin-left: 2%;" placeholder="请输入选项值"></el-input>
-          <el-button type="text" size="small" icon="el-icon-delete" @click="removeOption(i)" class="del-btn" :disabled="i == 0"></el-button>
+          <el-button type="text" size="small" icon="el-icon-delete" @click="removeOption(i)" class="del-btn" :disabled="form.options.length == 1"></el-button>
         </div>
         <div>
           <el-button type="text" size="small" @click="addOption">新增选项</el-button>
@@ -26,6 +42,7 @@
 </template>
 
 <script>
+import reqularList from './config/reqularList'
 export default {
   name: 'formConfig',
   props: {
@@ -42,10 +59,12 @@ export default {
   data() {
     return {
       show: this.showDialog,
+      isRule: 0,
+      reqularOptions: [],
       form: {
         title: '',
         field: '',
-        value: '',
+        regType: '',
         options: [
           {
             value: '',
@@ -59,12 +78,19 @@ export default {
     'showDialog'(value) {
       this.show = value;
       if (value) {
+        this.resetConfig();
         Object.assign(this.form, this.config);
+        this.isRule = this.form.regType ? 1 : 0;
       }
     }
   },
   created () {
-    
+    reqularList.forEach(item => {
+      this.reqularOptions.push({
+        label: Object.values(item)[1],
+        value: Object.keys(item)[0]
+      })
+    })
   },
   mounted() {
 
@@ -74,20 +100,10 @@ export default {
     confirm() {
       this.show = false;
       this.$emit('confirm', this.form);
-      this.$refs['form'].resetFields();
-      this.$set(this.form, 'options', [{
-        value: '',
-        label: ''
-      }])
     },
     // 关闭
     close() {
       this.$emit('close');
-      this.$refs['form'].resetFields();
-      this.$set(this.form, 'options', [{
-        value: '',
-        label: ''
-      }])
     },
     // 添加选项
     addOption() {
@@ -99,7 +115,22 @@ export default {
     // 移除选项
     removeOption(index) {
       this.form.options.splice(index, 1);
-    }
+    },
+    // 开启验证规则
+    changeSwitch(value) {
+      if (!value) this.form.regType = '';
+    },
+    // 重置配置
+    resetConfig() {
+      for (let key in this.form) {
+        this.form[key] = '';
+      }
+      this.isRule = 0;
+      this.$set(this.form, 'options', [{
+        value: '',
+        label: ''
+      }])
+    },
   },
   components: {
     

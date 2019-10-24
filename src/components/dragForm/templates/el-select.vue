@@ -1,5 +1,5 @@
 <template>
-  <el-form-item :label="config.title || '下拉框'" :draggable="draggable" :data-form-type="config.type" :prop="rule ? config.field : ''">
+  <el-form-item :label="config.title || '下拉框'" :draggable="draggable" :data-form-type="config.type" :prop="isRule ? config.field : ''">
     <el-select v-model="form[config.field]" placeholder="请选择">
       <el-option :label="item.label" :value="item.value" :key="i" v-for="(item, i) in config.options"></el-option>
     </el-select>
@@ -25,7 +25,7 @@ export default {
         return {}
       }
     },
-    rule: {
+    isRule: {
       default() {
         return false;
       }

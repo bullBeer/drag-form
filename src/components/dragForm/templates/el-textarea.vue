@@ -1,5 +1,5 @@
 <template>
-  <el-form-item :label="config.title || '文本框'" :draggable="draggable" :data-form-type="config.type" :prop="rule ? config.field : ''">
+  <el-form-item :label="config.title || '文本框'" :draggable="draggable" :data-form-type="config.type" :prop="isRule ? config.field : ''">
     <el-input type="textarea" v-model="form[config.field]"></el-input>
   </el-form-item>
 </template>
@@ -23,7 +23,7 @@ export default {
         return {}
       }
     },
-    rule: {
+    isRule: {
       default() {
         return false;
       }

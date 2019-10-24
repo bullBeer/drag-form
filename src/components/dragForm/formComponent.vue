@@ -1,12 +1,12 @@
 <template>
-  <component :is="component" :config="config" :draggable="draggable" :form="form" :rule="rule"/>
+  <component :is="component" :config="config" :draggable="draggable" :form="form" :isRule="isRule"/>
 </template>
 
 <script>
 export default {
   name: 'formComponent',
   props: {
-    rule: {
+    isRule: {
       default() {
         return false;
       }
@@ -24,9 +24,7 @@ export default {
     form: {
       default() {
         return {
-          [this.config.field]: '',
-          [this.config.label]: '',
-          [this.config.value]: ''
+          [this.config.field]: ''
         }
       }
     }

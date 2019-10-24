@@ -1,5 +1,5 @@
 <template>
-  <el-form-item :label="config.title || '单选框'" :draggable="draggable" :data-form-type="config.type" :prop="rule ? config.field : ''">
+  <el-form-item :label="config.title || '单选框'" :draggable="draggable" :data-form-type="config.type" :prop="isRule ? config.field : ''">
     <el-radio-group v-model="form[config.field]">
       <el-radio label="选项1"></el-radio>
       <el-radio label="选项2"></el-radio>
@@ -26,7 +26,7 @@ export default {
         return {}
       }
     },
-    rule: {
+    isRule: {
       default() {
         return false;
       }

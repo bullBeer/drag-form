@@ -1,5 +1,5 @@
 <template>
-  <el-form-item :label="config.title || '时间选择'" :draggable="draggable" :data-form-type="config.type" :prop="rule ? config.field : ''">
+  <el-form-item :label="config.title || '时间选择'" :draggable="draggable" :data-form-type="config.type" :prop="isRule ? config.field : ''">
     <el-col :span="11">
       <el-date-picker type="date" placeholder="选择日期" v-model="form[config.field]" style="width: 100%;"></el-date-picker>
     </el-col>
@@ -29,7 +29,7 @@ export default {
         return {}
       }
     },
-    rule: {
+    isRule: {
       default() {
         return false;
       }
