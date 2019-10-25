@@ -159,7 +159,6 @@ export default {
           index: i // 容器下标
         })
       }
-      const marginX = 1;
       Object.assign(this.boxStyle, {
         margin: '10px 1%',
         width: (100 - 1 * config.col * 2) / config.col + '%'
