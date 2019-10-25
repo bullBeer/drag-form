@@ -70,7 +70,7 @@ export default {
 
     // 拖拽事件交互
     document.addEventListener("dragstart", function(event) {
-      event.target.style.opacity = .5;
+      event.target.classList.add('moving');
       self.dragFormType = event.target.dataset.formType;
       const target = self.findClass(event.target, 'form-box')
       if (target) {
@@ -81,7 +81,7 @@ export default {
       }
     }, false);
     document.addEventListener("dragend", function(event) {
-      event.target.style.opacity = "";
+      event.target.classList.remove('moving');
     }, false);
     document.addEventListener("dragover", function(event) {
       event.preventDefault();

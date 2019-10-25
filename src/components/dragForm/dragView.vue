@@ -77,7 +77,10 @@ export default {
         height: 100%;
         padding: 10px;
         box-sizing: border-box;
-        background-color: #fff;
+        &.moving{
+          background-color: #fff;
+          opacity: 0.5;
+        }
       }
       .el-button{
         position: absolute;
