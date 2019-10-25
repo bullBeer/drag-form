@@ -130,7 +130,9 @@ export default {
           self.$set(self.boxList, self.fromDragIndex, item2);
           self.fromDragIndex = '';
         } else {
+          const options = formTypeList.find(item => item.type === self.dragFormType).options;
           self.$set(self.boxList[target.dataset.index], 'type', self.dragFormType);
+          options && self.$set(self.boxList[target.dataset.index], 'options', JSON.parse(JSON.stringify(options)));
         }
       }
       // 清空当前容器表单

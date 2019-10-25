@@ -23,7 +23,7 @@
           <el-option :label="item.label" :value="item.value" v-for="item in reqularOptions" :key="item.value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="选项名称与值" v-if="config.type === 'select' || config.type === 'checkbox'">
+      <el-form-item label="选项名称与值" v-if="config.type === 'select' || config.type === 'checkbox' || config.type === 'radio'">
         <div v-for="(item, i) in form.options" :key="i" class="mb10">
           <el-input v-model="item.label" style="width: 45%;" placeholder="请输入选项名称"></el-input>
           <el-input v-model="item.value" style="width: 45%; margin-left: 2%;" placeholder="请输入选项值"></el-input>
