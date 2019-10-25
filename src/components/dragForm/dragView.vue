@@ -77,6 +77,7 @@ export default {
         height: 100%;
         padding: 10px;
         box-sizing: border-box;
+        background-color: #fff;
       }
       .el-button{
         position: absolute;
