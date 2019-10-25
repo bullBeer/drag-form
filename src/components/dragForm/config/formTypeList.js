@@ -25,6 +25,9 @@ export default [
     type: 'date',
   },
   {
+    type: 'datetime',
+  },
+  {
     type: 'switch',
   },
   {

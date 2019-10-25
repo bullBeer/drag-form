@@ -59,12 +59,14 @@
   }
 
   .form-option-list{
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    column-count: 2;
+    column-gap: 2px;
+    width: 100%;
     .el-form-item{
+      width: 98%;
+      margin: 1%;
+      display: inline-block;
       padding: 5px 10px 10px;
-      width: 48%;
       box-sizing: border-box;
       border: 1px dashed #ccc;
       border-radius: 5px;
@@ -130,5 +132,10 @@
   .el-input-number__decrease, .el-input-number{
     line-height: 30px;
     height: 30px;
+  }
+
+  .form-btns{
+    width: 100%;
+    padding: 1%;
   }
 }

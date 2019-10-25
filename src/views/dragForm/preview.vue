@@ -8,6 +8,10 @@
         <form-component v-if="config.list[index - 1].type" :config="config.list[index - 1]" :draggable="false" :form="form" :isRule="config.list[index - 1].regType">
         </form-component>
       </div>
+      <el-form-item class="form-btns">
+        <el-button type="primary" size="small" @click="submit">确定</el-button>
+        <el-button size="small" @click="resetForm">重置</el-button>
+      </el-form-item>
     </el-form>
 
   </div>
@@ -44,12 +48,10 @@ export default {
           index: i
         })
       }
-      const marginX = 1;
       Object.assign(this.boxStyle, {
         margin: '10px 1%',
         width: (100 - 1 * config.col * 2) / config.col + '%'
       });
-
       // 初始化表单数据与验证
       config.list.forEach(item => {
         if (item.field) {
@@ -62,6 +64,28 @@ export default {
       })
       console.log('this.form', this.form)
       console.log('this.rules', this.rules)
+    },
+    // 提交
+    submit() {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.$message.closeAll();
+          this.$message({
+            message: '提交成功',
+            type: 'success'
+          });
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    // 重置
+    resetForm() {
+      for (let key in this.form) {
+        this.form[key] = '';
+      }
+      this.$refs['form'].resetFields();
     }
   },
   components: {

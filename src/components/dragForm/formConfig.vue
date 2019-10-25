@@ -12,9 +12,9 @@
           v-model="isRule"
           active-color="#13ce66"
           inactive-color="#dedede"
-          :active-value="1"
-          :inactive-value="0"
-          @change="changeSwitch"
+          :active-value="true"
+          :inactive-value="false"
+          @change="changeRule"
         >
         </el-switch>
       </el-form-item>
@@ -32,6 +32,17 @@
         <div>
           <el-button type="text" size="small" @click="addOption">新增选项</el-button>
         </div>
+      </el-form-item>
+      <el-form-item label="是否禁用">
+        <el-switch
+          v-model="isDisable"
+          active-color="#13ce66"
+          inactive-color="#dedede"
+          :active-value="true"
+          :inactive-value="false"
+          @change="changeDisable"
+        >
+        </el-switch>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -59,12 +70,14 @@ export default {
   data() {
     return {
       show: this.showDialog,
-      isRule: 0,
+      isRule: false,
+      isDisable: false,
       reqularOptions: [],
       form: {
         title: '',
         field: '',
         regType: '',
+        disabled: false,
         options: [
           {
             value: '',
@@ -80,7 +93,8 @@ export default {
       if (value) {
         this.resetConfig();
         Object.assign(this.form, this.config);
-        this.isRule = this.form.regType ? 1 : 0;
+        this.isRule = this.form.regType ? true : false;
+        this.isDisable = this.form.disabled;
       }
     }
   },
@@ -117,7 +131,7 @@ export default {
       this.form.options.splice(index, 1);
     },
     // 开启验证规则
-    changeSwitch(value) {
+    changeRule(value) {
       if (!value) this.form.regType = '';
     },
     // 重置配置
@@ -125,7 +139,9 @@ export default {
       for (let key in this.form) {
         this.form[key] = '';
       }
-      this.isRule = 0;
+      this.isRule = false;
+      this.isDisable = false;
+      this.$set(this.form, 'disabled', false);
       if(this.config.type === 'select' || this.config.type === 'checkbox' || this.config.type === 'radio') {
         this.$set(this.form, 'options', [{
           value: '',
@@ -135,6 +151,9 @@ export default {
       }
       this.$delete(this.form, 'options');
     },
+    changeDisable(value) {
+      this.form.disabled = value;
+    }
   },
   components: {
     

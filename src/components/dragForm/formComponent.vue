@@ -23,9 +23,7 @@ export default {
     },
     form: {
       default() {
-        return {
-          [this.config.field]: ''
-        }
+        return {}
       }
     }
   },

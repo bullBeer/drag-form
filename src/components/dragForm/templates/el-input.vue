@@ -1,6 +1,6 @@
 <template>
   <el-form-item :label="config.title || '输入框'" :draggable="draggable" :data-form-type="config.type" :prop="isRule ? config.field : ''">
-    <el-input v-model="form[config.field]"></el-input>
+    <el-input v-model="form[config.field]" :disabled="config.disabled" :placeholder="`请输入${config.title || ''}`"></el-input>
   </el-form-item>
 </template>
 
