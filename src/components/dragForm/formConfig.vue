@@ -1,5 +1,5 @@
 <template>
-  <el-dialog class="mixin-form" :append-to-body="true" title="表单配置" :visible.sync="show" width="600px" @closed="close">
+  <el-dialog class="mixin-form" :append-to-body="true" title="表单配置" :visible.sync="show" width="600px" @closed="$emit('update:showDialog', false);">
     <el-form :model="form" ref="form" label-width="100px" label-position="right">
       <el-form-item label="表单名称">
         <el-input v-model="form.title" placeholder="请输入表单名称"></el-input>
@@ -114,10 +114,6 @@ export default {
     confirm() {
       this.show = false;
       this.$emit('confirm', this.form);
-    },
-    // 关闭
-    close() {
-      this.$emit('close');
     },
     // 添加选项
     addOption() {

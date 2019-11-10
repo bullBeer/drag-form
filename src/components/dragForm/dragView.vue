@@ -8,8 +8,7 @@
     </el-form>
     <form-config 
       :config="currentConfig"
-      :showDialog="showFieldConfig" 
-      @close="showFieldConfig = false"
+      :showDialog.sync="showDialog" 
       @confirm="confirmConfig"
     >
     </form-config>
@@ -35,7 +34,7 @@ export default {
   },
   data() {
     return {
-      showFieldConfig: false,
+      showDialog: false,
       currentConfig: {}
     }
   },
@@ -48,7 +47,7 @@ export default {
     },
     getCurrentConfig(config) {
       this.currentConfig = config;
-      this.showFieldConfig = true;
+      this.showDialog = true;
     }
   },
   components: {

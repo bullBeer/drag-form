@@ -31,6 +31,11 @@ export default {
       }
     },
   },
+  watch: {
+    'config.field'(field) {
+      this.$set(this.iForm, field, [])
+    }
+  },
   data() {
     return {
       iForm: {

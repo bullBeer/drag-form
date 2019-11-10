@@ -20,8 +20,7 @@
       </drag-view>
     </div>
     <setting 
-      :showDialog="showSettings" 
-      @close="showSettings = false"
+      :showDialog.sync="showSettings"
       @confirm="confirmSetting"
     >
     </setting>
