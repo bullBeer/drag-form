@@ -57,8 +57,8 @@ export default {
         if (item.field) {
           this.$set(this.form, item.field, '');
           this.$set(this.rules, item.field, [
-            {validator: validator.empty, message: `${item.title}不能为空`, trigger: 'blur'},
-            {validator: validator.match, message: `${item.title}输入有误`, trigger: 'blur', regType: item.regType}
+            {required: true, validator: validator.empty, message: `${item.title}不能为空`, trigger: 'blur'},
+            {required: true, validator: validator.match, message: `${item.title}输入有误`, trigger: 'blur', regType: item.regType}
           ]);
         }
       })
