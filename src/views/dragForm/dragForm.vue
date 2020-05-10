@@ -131,6 +131,7 @@ export default {
         } else {
           const options = formTypeList.find(item => item.type === self.dragFormType).options;
           self.$set(self.boxList[target.dataset.index], 'type', self.dragFormType);
+          self.$set(self.boxList[target.dataset.index], 'field', self.dragFormType + '_' + Date.now());
           options && self.$set(self.boxList[target.dataset.index], 'options', JSON.parse(JSON.stringify(options)));
         }
       }
